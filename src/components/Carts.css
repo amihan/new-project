@@ -1,0 +1,15 @@
+.cartsItems{
+    /* border: 1px solid #000; */
+}
+
+.cartsItems__item{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+}
+
+.cartsItems__title{
+    text-decoration: underline;
+    text-align: center;
+    margin-bottom: 30px;
+}
