@@ -6,6 +6,29 @@
   width: 300px;
 }
 
+li{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+  color:inherit;
+}
+
+.nav{
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar{
+  display: flex;
+}
+
+.navbar__item{
+  font-size: 20px;
+  margin-right: 20px;
+}
+
 .App__title{
   text-align: center;
   font-size: 50px;
@@ -18,6 +41,11 @@
 
 .carts{
   display: grid;
-  grid-template-columns:1fr 1fr;
+  justify-items:center;
+  grid-template-columns:1fr 1fr 1fr;
   gap: 20px;
+}
+
+.cart{
+  justify-items: center;
 }

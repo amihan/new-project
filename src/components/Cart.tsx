@@ -1,37 +1,47 @@
-import { useEffect, useState } from "react";
-import { IItems } from "../App";
+import {  useState } from "react";
 import './Cart.css'
+import { IData } from "../App";
 
 
 
-const Cart = (props:IItems ) => {
+const Cart = (props: IData ) => {
 
-    const {
-        count,
-        text
-    } = props
+    const {count, text, id} = props
 
-    const [value, setValue] = useState<number>(count)
-
-
-
-    useEffect(() => {
-        const savedData = localStorage.getItem(text);
-        if (savedData) {
-            setValue(Number(savedData));
-        }
-    }, []);
+    const [data, setData] = useState({count, text, id})
 
     const handleChange = () => {
-        // Обновляем состояние компонента и сохраняем данные в локальное хранилище
-        setValue(prev => prev+1);
-        localStorage.setItem(text, JSON.stringify(value+1));
-    };
+        fetch(`https://6560440183aba11d99d07f11.mockapi.io/new/${id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: data.id,
+                count: data.count+1,
+                text: data.text
+              }),
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then(data => {
+                console.log(data)
+                setData(data)
+            })
+            .catch(error => {
+              console.error('Ошибка при выполнении запроса:', error);
+            });
+    }
+
 
     return (
         <div className="cartItem">
-            <p className="cartItem__title">{text}</p>
-            <p className="cartItem__value">{value}</p>
+            <p className="cartItem__title">{data.text}</p>
+            <p className="cartItem__value">{data.count}</p>
             <button className="cartItem__btn" onClick={handleChange}>нравится</button>
         </div>
     );
